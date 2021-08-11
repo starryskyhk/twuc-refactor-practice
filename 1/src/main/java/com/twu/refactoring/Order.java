@@ -26,7 +26,7 @@ public class Order {
         return items;
     }
 
-    public String getContent() {
+    public String getItems() {
         return items.stream().map(LineItem::getLineItem).collect(Collectors.joining());
     }
 
@@ -45,6 +45,6 @@ public class Order {
     }
 
     public String getBody() {
-        return getCustomerInfo() + getContent();
+        return getCustomerInfo() + getItems();
     }
 }

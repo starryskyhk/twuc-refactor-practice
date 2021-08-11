@@ -14,7 +14,7 @@ public class OrderReceipt {
 
         return HEAD +
             order.getBody() +
-            SALES_TAX + '\t' + order.getTotSalesTx() +
+            SALES_TAX + '\t' + order.getTotalSalesTax() +
             TOTAL_AMOUNT + '\t' + order.getTotal();
     }
 
