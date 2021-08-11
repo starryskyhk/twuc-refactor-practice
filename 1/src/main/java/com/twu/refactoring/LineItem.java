@@ -27,4 +27,12 @@ public class LineItem {
     double totalAmount() {
         return price * quantity;
     }
+
+	public String getLineItem() {
+		return describe+'\t'+ price+'\t'+ quantity+ '\t' + totalAmount()+'\n';
+	}
+
+    public double getDiscountPrice() {
+        return totalAmount() * .10;
+    }
 }
