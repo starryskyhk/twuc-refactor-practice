@@ -34,10 +34,8 @@ public class Order {
         return name + address;
     }
 
-    public double getTotSalesTx() {
-        double totSalesTx = 0;
-        totSalesTx += items.stream().mapToDouble(LineItem::getDiscountPrice).sum();
-        return totSalesTx;
+    public double getTotalSalesTax() {
+        return items.stream().mapToDouble(LineItem::getDiscountPrice).sum();
     }
 
     public double getTotal() {
