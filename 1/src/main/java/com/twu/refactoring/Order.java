@@ -41,7 +41,6 @@ public class Order {
     }
 
     public double getTotal() {
-        // calculate total amount of lineItem = price * quantity + 10 % sales tax
         return items.stream().mapToDouble(lineItem -> lineItem.totalAmount() + lineItem.getDiscountPrice()).sum();
     }
 
