@@ -5,7 +5,7 @@ public class Year {
 
     private static Integer value;
 
-    public static Integer parse(String dateAndTimeString) {
+    public Integer parse(String dateAndTimeString) {
         try {
             String yearString = dateAndTimeString.substring(0, 4);
             value = Integer.parseInt(yearString);
@@ -19,8 +19,16 @@ public class Year {
     }
 
 
-    private static void verifyYear() {
+    private void verifyYear() {
         if (value < 2000 || value > 2012)
             throw new IllegalArgumentException("Year cannot be less than 2000 or more than 2012");
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        Year.value = value;
     }
 }

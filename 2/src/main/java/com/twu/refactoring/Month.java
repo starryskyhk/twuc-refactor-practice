@@ -1,9 +1,9 @@
 package com.twu.refactoring;
 
 public class Month {
-    private static Integer value;
+    private Integer value;
 
-    public static int parseMonth(String dateAndTimeString) {
+    public int parseMonth(String dateAndTimeString) {
         try {
             String monthString = dateAndTimeString.substring(5, 7);
             value = Integer.parseInt(monthString);
@@ -16,8 +16,15 @@ public class Month {
         return value;
     }
 
+    public Integer getValue() {
+        return value;
+    }
 
-    private static void verifyMonth() {
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    private void verifyMonth() {
         if (value < 1 || value > 12)
             throw new IllegalArgumentException("Month cannot be less than 1 or more than 12");
     }

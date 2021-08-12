@@ -1,15 +1,30 @@
 package com.twu.refactoring;
 
 public class Time {
-    private static Integer hour;
-    private static Integer minute;
+    private  Integer hour;
+    private  Integer minute;
 
-    public static boolean dateZero(String dateAndTimeString) {
+    public  boolean dateZero(String dateAndTimeString) {
         return dateAndTimeString.charAt(11) == 'Z';
     }
 
+    public Integer getMinute() {
+        return minute;
+    }
 
-    public static int parseMinute(String dateAndTimeString) {
+    public void setMinute(Integer minute) {
+        this.minute = minute;
+    }
+
+    public Integer getHour() {
+        return hour;
+    }
+
+    public void setHour(Integer hour) {
+        this.hour = hour;
+    }
+
+    public  int parseMinute(String dateAndTimeString) {
         try {
             String minuteString = dateAndTimeString.substring(14, 16);
             minute = Integer.parseInt(minuteString);
@@ -21,17 +36,17 @@ public class Time {
         verifyMinute();
         return minute;
     }
-    private static void verifyMinute() {
+    private  void verifyMinute() {
         if (minute < 0 || minute > 59)
             throw new IllegalArgumentException("Minute cannot be less than 0 or more than 59");
     }
 
-    private static void verifyHour() {
+    private  void verifyHour() {
         if (hour < 0 || hour > 23)
             throw new IllegalArgumentException("Hour cannot be less than 0 or more than 23");
     }
 
-    public static int parseHour(String dateAndTimeString) {
+    public  int parseHour(String dateAndTimeString) {
         try {
             String hourString = dateAndTimeString.substring(11, 13);
             hour = Integer.parseInt(hourString);

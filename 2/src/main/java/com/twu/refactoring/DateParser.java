@@ -27,33 +27,7 @@ public class DateParser {
     }
 
     public Date parse() {
-        int year, month, date, hour, minute;
-
-        //获取到年份字符串
-        year = Year.parse(dateAndTimeString);
-        //获取月份的字符串
-        month = Month.parseMonth(dateAndTimeString);
-
-        //获取日期的字符串
-        date = com.twu.refactoring.Date.parseDate(dateAndTimeString);
-        //如果是零点
-        if (Time.dateZero(dateAndTimeString)) {
-            hour = 0;
-            minute = 0;
-        } else {
-            hour = Time.parseHour(dateAndTimeString);
-            minute = Time.parseMinute(dateAndTimeString);
-
-        }
-
-        return getCalendar(year, month - 1, date, hour, minute).getTime();
-    }
-
-    private Calendar getCalendar(int year, int month, int date, int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(KNOWN_TIME_ZONES.get("UTC"));
-        calendar.set(year, month, date, hour, minute, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
+        Calendar calendar = new DateTime().parse(dateAndTimeString, KNOWN_TIME_ZONES.get("UTC"));
+        return calendar.getTime();
     }
 }

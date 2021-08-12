@@ -1,14 +1,22 @@
 package com.twu.refactoring;
 
 public class Date {
-    private static Integer value;
+    private Integer value;
 
-    private static void verifyDate() {
+    private void verifyDate() {
         if (value < 1 || value > 31)
             throw new IllegalArgumentException("Date cannot be less than 1 or more than 31");
     }
 
-    public static int parseDate(String dateAndTimeString) {
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public int parseDate(String dateAndTimeString) {
         try {
             String dateString = dateAndTimeString.substring(8, 10);
             value = Integer.parseInt(dateString);
