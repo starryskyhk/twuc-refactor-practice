@@ -1,40 +1,32 @@
 package com.twu.refactoring;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 public class Direction {
     private final char direction;
+    private final HashMap<Character, DirectionCoordinate> directions = new HashMap<>();
 
+    public void initDirections() {
+        directions.put('N', new N());
+        directions.put('E', new E());
+        directions.put('W', new W());
+        directions.put('S', new S());
+    }
     public Direction(char direction) {
         this.direction = direction;
+        initDirections();
     }
 
     public Direction turnRight() {
-        switch (direction) {
-            case 'N':
-                return new Direction('E');
-            case 'S':
-                return new Direction('W');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
-            default:
-                throw new IllegalArgumentException();
-        }
+        DirectionCoordinate directionCoordinate = Optional.ofNullable(directions.get(direction)).orElseThrow(IllegalArgumentException::new);
+        return directionCoordinate.right();
     }
 
     public Direction turnLeft() {
-        switch (direction) {
-            case 'N':
-                return new Direction('W');
-            case 'S':
-                return new Direction('E');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
-            default:
-                throw new IllegalArgumentException();
-        }
+        DirectionCoordinate directionCoordinate = Optional.ofNullable(directions.get(direction)).orElseThrow(IllegalArgumentException::new);
+        return directionCoordinate.left();
+
     }
 
     @Override
@@ -44,14 +36,12 @@ public class Direction {
 
         Direction direction1 = (Direction) o;
 
-        if (direction != direction1.direction) return false;
-
-        return true;
+        return direction == direction1.direction;
     }
 
     @Override
     public int hashCode() {
-        return (int) direction;
+        return direction;
     }
 
     @Override
