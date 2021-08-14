@@ -2,11 +2,9 @@ package com.twu.refactoring;
 
 import java.util.Arrays;
 
-public class NumberCruncher {
-    private final int[] numbers;
-
+public class NumberCruncher extends Operation{
     public NumberCruncher(int... numbers) {
-        this.numbers = numbers;
+        super(numbers);
     }
 
     public int countEven() {
