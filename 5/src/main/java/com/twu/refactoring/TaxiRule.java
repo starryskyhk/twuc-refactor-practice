@@ -23,7 +23,4 @@ public enum TaxiRule {
         return value;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
 }
