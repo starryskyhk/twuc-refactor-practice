@@ -1,6 +1,5 @@
 package com.twu.refactoring;
 
-import java.util.Arrays;
 
 public class NumberCruncher extends Operation{
     public NumberCruncher(int... numbers) {
@@ -8,18 +7,18 @@ public class NumberCruncher extends Operation{
     }
 
     public int countEven() {
-        return (int) Arrays.stream(numbers).filter(number -> number % 2 == 0).count();
+        return new Even(numbers).countEven();
     }
 
     public int countOdd() {
-        return (int) Arrays.stream(numbers).filter(number -> number % 2 == 1).count();
+        return new Odd(numbers).countOdd();
     }
 
     public int countPositive() {
-        return (int) Arrays.stream(numbers).filter(number -> number >= 0).count();
+        return new Positive(numbers).countPositive();
     }
 
     public int countNegative() {
-        return (int) Arrays.stream(numbers).filter(number -> number < 0).count();
+        return new Negative(numbers).countNegative();
     }
 }
