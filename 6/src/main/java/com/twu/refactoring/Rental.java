@@ -1,5 +1,7 @@
 package com.twu.refactoring;
 
+import java.util.Objects;
+
 public class Rental {
 
     private Movie movie;
@@ -11,11 +13,25 @@ public class Rental {
         this.daysRented = daysRented;
     }
 
-    public int getDaysRented() {
-        return daysRented;
+    public double getThisAmount() {
+        AmountRule thisAmount = null;
+        switch (movie.getPriceCode()) {
+        case Movie.REGULAR:
+            thisAmount = new RegularAmount();break;
+        case Movie.NEW_RELEASE:
+            thisAmount = new NewReleaseAmount();break;
+        case Movie.CHILDRENS:
+            thisAmount = new ChildrensAmount();break;
+        }
+        return Objects.requireNonNull(thisAmount).getAmount(daysRented);
     }
 
-    public Movie getMovie() {
-        return movie;
+    public boolean isEarnBonus() {
+        return (movie.getPriceCode() == Movie.NEW_RELEASE)
+                && daysRented > 1;
+    }
+
+    public String getResult(double thisAmount) {
+        return "\t" + movie.getTitle() + "\t" + thisAmount + "\n";
     }
 }
