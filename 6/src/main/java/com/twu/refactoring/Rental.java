@@ -31,7 +31,13 @@ public class Rental {
                 && daysRented > 1;
     }
 
-    public String getResult(double thisAmount) {
-        return "\t" + movie.getTitle() + "\t" + thisAmount + "\n";
+    public String getResult() {
+        return "\t" + movie.getTitle() + "\t" + getThisAmount() + "\n";
     }
+
+    public int getEachRenterPoint() {
+        int frequentRenterPoints = 1;
+        return isEarnBonus() ? frequentRenterPoints +1 : frequentRenterPoints;
+    }
+
 }

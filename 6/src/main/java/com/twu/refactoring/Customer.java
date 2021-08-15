@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 public class Customer {
 
-	private String name;
-	private ArrayList<Rental> rentalList = new ArrayList<Rental>();
+	public static final String AMOUNT_OWED_IS = "Amount owed is ";
+	public static final String YOU_EARNED = "You earned ";
+	public static final String FREQUENT_RENTER_POINTS = " frequent renter points";
+	public static final String RENTAL_RECORD_FOR = "Rental Record for ";
+	private final String name;
+	private final ArrayList<Rental> rentalList = new ArrayList<>();
 
 	public Customer(String name) {
 		this.name = name;
@@ -15,38 +19,40 @@ public class Customer {
 		rentalList.add(arg);
 	}
 
+
 	public String getName() {
 		return name;
 	}
 
 	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
-		StringBuilder result = new StringBuilder("Rental Record for " + getName() + "\n");
-		for (Rental each : rentalList) {
-			double thisAmount = 0;
-			// determine amounts for each line
-			thisAmount = each.getThisAmount();
-			// show figures for this rental
-			result.append(each.getResult(thisAmount));
-			totalAmount += thisAmount;
-		}
-
-		for (Rental each : rentalList) {
-			// add frequent renter points
-			frequentRenterPoints++;
-			// add bonus for a two day new release rental
-			if (each.isEarnBonus())
-				frequentRenterPoints++;
-		}
-		// add footer lines
-		return getFooter(totalAmount, frequentRenterPoints, result.toString());
+		return  getHead()
+			+ getBody()
+			+ getFooter();
 	}
 
-	private String getFooter(double totalAmount, int frequentRenterPoints, String result) {
-		result += "Amount owed is " + totalAmount + "\n";
-		result += "You earned " + frequentRenterPoints
-				+ " frequent renter points";
+	private String getHead() {
+		return RENTAL_RECORD_FOR + name + "\n";
+	}
+
+	private String getBody() {
+		StringBuilder body = new StringBuilder();
+		rentalList.forEach(rental -> body.append(rental.getResult()));
+		return body.toString();
+	}
+
+	private int getFrequentRenterPoints() {
+		return rentalList.stream().mapToInt(Rental::getEachRenterPoint).sum();
+	}
+
+	private double getTotalAmount() {
+		return rentalList.stream().mapToDouble(Rental::getThisAmount).sum();
+	}
+
+	private String getFooter() {
+		String result = "";
+		result += AMOUNT_OWED_IS + getTotalAmount() + "\n";
+		result += YOU_EARNED + getFrequentRenterPoints()
+				+ FREQUENT_RENTER_POINTS;
 		return result;
 	}
 
